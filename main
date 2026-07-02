@@ -1,0 +1,24 @@
+#include <memory>
+#include "Light.h"
+#include "LightOnCommand.h"
+#include "LightOffCommand.h"
+#include "RemoteControl.h"
+using namespace std;
+
+int main()
+{
+    Light light;
+
+    shared_ptr<Command> lightOn = make_shared<LightOnCommand>(&light);
+    shared_ptr<Command> lightOff = make_shared<LightOffCommand>(&light);
+
+    RemoteControl remote;
+
+    remote.SetCommand(lightOn);
+    remote.PressButton();
+
+    remote.SetCommand(lightOff);
+    remote.PressButton();
+
+    return 0;
+}
